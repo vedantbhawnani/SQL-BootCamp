@@ -1,0 +1,115 @@
+Challenge 1: 
+q1) SELECT first_name, last_name, email FROM customers;
+
+  
+Challenge 2: 
+q2) SELECT DISTINCT rating FROM film;
+
+
+Challenge 3:
+q1) SELECT email 
+FROM customer 
+WHERE first_name = 'Nancy';
+
+q2) SELECT DESCription 
+FROM film 
+WHERE title = 'Outlaw Hanky';
+
+q3) SELECT phone 
+FROM address 
+WHERE address = '259 Ipoh Drive';
+
+
+Challenge 4:
+q1) SELECT customer_id 
+FROM payment 
+ORDER BY payment_date ASC 
+LIMIT 10;
+
+q2) SELECT title 
+FROM film 
+ORDER BY length ASC 
+LIMIT 5;
+
+
+Challenge 5:
+q1) SELECT COUNT(payment_id) 
+FROM payment 
+WHERE amount > 5;
+
+q2) SELECT COUNT(actor_id) 
+FROM actor 
+WHERE first_name ILIKE 'p%';
+
+q3) SELECT COUNT(DISTINCT district) FROM address;
+q4) SELECT DISTINCT district FROM address;
+
+q5) SELECT COUNT(*) 
+FROM film  
+WHERE rating = 'R' AND replacement_cost 
+BETWEEN 5 AND 15;
+
+q6) SELECT COUNT( * ) FROM film WHERE title ILIKE '%Truman%'
+
+
+Challenge 6:
+q1) SELECT COUNT(customer_id) 
+FROM payment 
+GROUP BY staff_id
+
+q2) SELECT rating, ROUND(AVG(replacement_cost),3) 
+FROM film 
+GROUP BY rating 
+
+q3) SELECT customer_id, SUM(amount) 
+FROM payment 
+GROUP BY customer_id 
+ORDER BY SUM(amount) DESC 
+LIMIT 5
+
+
+Challenge 7: 
+q1) SELECT customer_id, COUNT(payment_id) 
+FROM payment 
+GROUP BY customer_id 
+HAVING COUNT(payment_id) >= 40
+
+q2) SELECT customer_id, SUM(amount) FROM payment 
+WHERE staff_id = 2
+GROUP BY customer_id
+HAVING SUM(amount) > 100 
+
+Assessment Test
+q1) SELECT customer_id, sum(amount) from payment 
+WHERE staff_id = 2
+group by customer_id
+HAVING sum(amount) > 110
+  
+q2) SELECT COUNT(*) 
+FROM film 
+WHERE title ILIKE 'J%'
+
+Q3) SELECT first_name, last_name 
+FROM customer 
+WHERE address_id < 500 AND first_name ILIKE 'e%' 
+ORDER BY customer_id DESC 
+LIMIT 1
+
+Challenge 3
+Q1) 
+-- Update all customers in California via email
+SELECT email FROM customer
+JOIN address
+on address.address_id = customer.address_id
+where district = 'California'
+
+Q2)
+-- Customer is huge fan of Nick WahlBerg
+-- Give list of all movies Nick has been in 
+
+select title from film_actor
+RIGHT JOIN film
+ON film.film_id = film_actor.film_id
+RIGHT JOIN actor
+ON actor.actor_id = film_actor.actor_id
+WHERE first_name = 'Nick' AND last_name = 'Wahlberg'
