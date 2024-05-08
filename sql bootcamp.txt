@@ -113,3 +113,74 @@ ON film.film_id = film_actor.film_id
 RIGHT JOIN actor
 ON actor.actor_id = film_actor.actor_id
 WHERE first_name = 'Nick' AND last_name = 'Wahlberg'
+
+#Time and Date
+To get date and time with timezone: SELECT NOW()
+To get day date time timezone: SELECT TIMEOFDAY()
+To get date: SELECT CURRENT_DATE
+To get time: SELECT CURRENT_TIME
+
+#Extracting time and date info
+Get year/month/day/week/quarter:
+SELECT EXTRACT(YEAR/MONTH/WEEK/DAY/QUARTER FROM date_col) FROM table
+
+Get age from timestamp:
+SELECT AGE(date_col) from table
+
+Print date-time in specific format: 
+SELECT TO_CHAR(payment_date, 'dd-mm-yyyy HH:MI:SS') FROM payment  [12 hour]
+SELECT TO_CHAR(payment_date, 'dd-mm-yy HH24:MI:SS') FROM payment  [24 hour]
+
+Challenge 4
+Q1) -- During which months did payments occur?
+SELECT DISTINCT EXTRACT(MONTH FROM payment_date) FROM payment
+OR 
+SELECT DISTINCT TO_CHAR(payment_date, 'mm') FROM payment
+
+Q2) -- Format your answer to return full month name
+SELECT DISTINCT TO_CHAR(payment_date, 'Month') FROM payment
+
+Q3) -- How many payments occured on a monday?
+SELECT COUNT(*)
+FROM payment
+WHERE TO_CHAR(payment_date, 'Day') = 'Monday   '
+
+ASSESSMENT TEST 2
+1. SELECT * FROM cd.facilities
+
+2. SELECT fac.name, fac.membercost
+FROM cd.facilities as fac
+
+3. SELECT *
+FROM cd.facilities AS fac
+WHERE fac.membercost > 0
+
+4. SELECT fac.facid, fac.name, fac.membercost, fac.monthlymaintenance
+FROM cd.facilities AS fac
+WHERE fac.membercost > 0 
+AND fac.membercost < 0.02 * fac.monthlymaintenance
+
+5. SELECT * FROM cd.facilities AS fac
+WHERE fac.name ILIKE '%tennis%'
+
+6. SELECT * FROM cd.facilities AS fac
+WHERE fac.facid = 1 or fac.facid = 5
+
+7. SELECT * FROM cd.members
+WHERE joindate > '2012-09-01'
+
+8. SELECT DISTINCT surname FROM cd.members
+ORDER BY surname
+LIMIT 10
+
+9. SELECT joindate FROM cd.members
+ORDER BY joindate DESC
+LIMIT 1
+
+10. SELECT COUNT(*) FROM cd.facilities
+WHERE guestcost > 10
+
+12. SELECT facId, sum(slots)
+FROM cd.bookings
+GROUP BY facId
+
